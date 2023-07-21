@@ -11,20 +11,19 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      flags: {
         type: DataTypes.JSON,
         allowNull: false,
       },
-      continent: {
+      flags: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      continents: {
         type: DataTypes.JSON,
         allowNull: false,
       },
       capital: {
         type: DataTypes.JSON,
-        allowNull: false,
       },
       subregion: {
         type: DataTypes.STRING,
