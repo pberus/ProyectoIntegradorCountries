@@ -9,12 +9,13 @@ module.exports = (sequelize) => {
       ID: {
         type: DataTypes.STRING(3),
         allowNull: false,
+        primaryKey: true,
       },
       name: {
         type: DataTypes.JSON,
         allowNull: false,
       },
-      flags: {
+      flag: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -24,6 +25,8 @@ module.exports = (sequelize) => {
       },
       capital: {
         type: DataTypes.JSON,
+        allowNull: false,
+        defaultValue: "No capital",
       },
       subregion: {
         type: DataTypes.STRING,

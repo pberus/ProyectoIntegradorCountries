@@ -1,9 +1,9 @@
-const getCountriesController = require("../controllers/getCountries");
+const getApiController = require("../controllers/getApi");
 const { Country } = require("../db");
 
-const getCountriesHandler = async () => {
+const getApiHandler = async () => {
   try {
-    const countries = await getCountriesController();
+    const countries = await getApiController();
     const countriesToInsert = countries?.map(
       ({
         cca3,
@@ -17,7 +17,7 @@ const getCountriesHandler = async () => {
       }) => ({
         ID: cca3,
         name: name.common,
-        flags: flags.png,
+        flag: flags.png,
         continents,
         capital,
         subregion,
@@ -25,11 +25,10 @@ const getCountriesHandler = async () => {
         population,
       })
     );
-    console.log(countriesToInsert);
     return await Country.bulkCreate(countriesToInsert);
   } catch (error) {
     console.log(error.message);
   }
 };
 
-module.exports = getCountriesHandler;
+module.exports = getApiHandler;
