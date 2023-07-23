@@ -27,7 +27,7 @@ const postActivityController = async (
   await newActivity.addCountries(countries);
 
   //! Si quiero devolver la actividad sin el ID o incluido los paises, hacer un findAll a Activity y devolver el resultado. 
-  
+  //! Si no quiero crear una actividad que ya esta creada, analizar findOrCreate (revisar borrador)
   return newActivity;
 };
 
