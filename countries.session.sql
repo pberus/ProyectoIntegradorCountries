@@ -1,3 +1,1 @@
-SELECT *
-FROM "Countries"
-WHERE capital IS NULL
+SELECT * FROM "Activities" JOIN "Countries" ON 

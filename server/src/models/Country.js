@@ -8,11 +8,10 @@ module.exports = (sequelize) => {
     {
       ID: {
         type: DataTypes.STRING(3),
-        allowNull: false,
         primaryKey: true,
       },
       name: {
-        type: DataTypes.JSON,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       flag: {
@@ -30,12 +29,14 @@ module.exports = (sequelize) => {
       },
       subregion: {
         type: DataTypes.STRING,
+        defaultValue: "No subregion",
       },
       area: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
+        defaultValue: "No area",
       },
       population: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },

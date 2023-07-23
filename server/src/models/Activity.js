@@ -7,21 +7,23 @@ module.exports = (sequelize) => {
       ID: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
+        primaryKey: true,
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       difficulty: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
         allowNull: false,
       },
       duration: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
+        defaultValue: "Is not defined",
       },
       season: {
-        type: DataTypes.ENUM("Verano", "Otoño", "Invierno", "Primavera"),
+        type: DataTypes.ENUM("Summer", "Autumn", "Winter", "Spring"),
+        allowNull: false,
       },
     },
     { timestamps: false }
