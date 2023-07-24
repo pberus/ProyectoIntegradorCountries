@@ -7,12 +7,16 @@ const postActivityController = async (
   season,
   countriesId
 ) => {
-  const newActivity = await Activity.create({
-    name,
-    difficulty,
-    duration,
-    season,
+  const [newActivity, created] = await Activity.findOrCreate({
+    where: {
+      name,
+      difficulty,
+      duration,
+      season,
+    },
   });
+
+  if (!created) throw new Error("The activity already exists");
 
   const countries = await Country.findAll({
     where: {
@@ -26,9 +30,15 @@ const postActivityController = async (
 
   await newActivity.addCountries(countries);
 
-  //! Si quiero devolver la actividad sin el ID o incluido los paises, hacer un findAll a Activity y devolver el resultado. 
-  //! Si no quiero crear una actividad que ya esta creada, analizar findOrCreate (revisar borrador)
-  return newActivity;
+  return await Activity.findByPk(newActivity.ID, {
+    include: {
+      model: Country,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
+  });
 };
 
 module.exports = postActivityController;
