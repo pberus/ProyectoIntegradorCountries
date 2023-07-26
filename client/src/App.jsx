@@ -1,18 +1,20 @@
 import "./App.css";
-import { Route, Routes, useLocation } from "react-router-dom";
-import {Nav} from "./components"
+import { Route, Routes, useNavigate} from "react-router-dom";
 import { Detail, Form, Home, Landing } from "./views";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function App() {
-  
-  const location = useLocation()
+  const access = useSelector(state => state.access)
+  const navigate = useNavigate()
 
+  
+  useEffect(() => {
+    !access && navigate("/");
+  }, [access]);
 
   return (
     <div>
-      {location.pathname !== "/" && (
-        <Nav />
-      )}
       <Routes>
         <Route path='/' element={<Landing />} />
         <Route path='/home' element={<Home />} />

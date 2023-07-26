@@ -16,7 +16,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     access && navigate("/home");
-  }, [access, navigate]);
+  }, [access]);
 
   const handleChange = (event) => {
     const property = event.target.name;

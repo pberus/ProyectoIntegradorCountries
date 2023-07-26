@@ -41,25 +41,25 @@ const App = () => {
   //   navigate("/");
   // };
 
-  const onSearch = async (id) => {
-    try {
-      const searchURL = URL + `character/${id}`;
-      const { data } = await axios(searchURL);
+  // const onSearch = async (id) => {
+  //   try {
+  //     const searchURL = URL + `character/${id}`;
+  //     const { data } = await axios(searchURL);
 
-      const charRepeted = characters?.find(
-        (character) => character.id === data.id
-      );
-      if (charRepeted) {
-        return alert("Ya agregaste un personaje con ese ID");
-      }
+  //     const charRepeted = characters?.find(
+  //       (character) => character.id === data.id
+  //     );
+  //     if (charRepeted) {
+  //       return alert("Ya agregaste un personaje con ese ID");
+  //     }
 
-      if (data.name) {
-        setCharacters((oldChars) => [...oldChars, data]);
-      }
-    } catch (error) {
-      alert("¡No hay personajes con este ID!");
-    }
-  };
+  //     if (data.name) {
+  //       setCharacters((oldChars) => [...oldChars, data]);
+  //     }
+  //   } catch (error) {
+  //     alert("¡No hay personajes con este ID!");
+  //   }
+  // };
 
   const onClose = (id) => {
     setCharacters(characters.filter((character) => character.id !== id));

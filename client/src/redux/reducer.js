@@ -1,6 +1,6 @@
-import { LOGIN, LOGOUT } from "./actions";
+import { LOGIN, LOGOUT, SEARCHCOUNTRY, GETALLCOUNTRIES, RESETCOUNTRY } from "./actions";
 
-const initialState = { access: false };
+const initialState = { access: false, allCountries: [], myCountries: [] };
 
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -14,6 +14,22 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         access: false,
       };
+    case SEARCHCOUNTRY:
+      return {
+        ...state,
+        myCountries: [payload],
+      };
+    case GETALLCOUNTRIES:
+      return {
+        ...state,
+        allCountries: [payload],
+        myCountries: [payload]
+      }
+    case RESETCOUNTRY:
+      return {
+        ...state,
+        myCountries: [...state.allCountries]
+      }
     default:
       return { ...state };
   }
