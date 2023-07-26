@@ -1,36 +1,22 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-const URL = "http://localhost:3001/";
+import { useSelector, useDispatch } from "react-redux";
+import { login } from "../../redux/actions";
 
 const LoginForm = () => {
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
-  const [access, setAccess] = useState(false);
+  
+  const access = useSelector(state => state.access)
+  const dispatch = useDispatch()
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    !access && navigate("/");
-  }, [access]);
-
-  const login = async (userData) => {
-    try {
-      const { email, password } = userData;
-
-      const { data } = await axios(
-        URL + `login/?email=${email}&password=${password}`
-      );
-      const { access } = data;
-      setAccess(access);
-      access && navigate("/home");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+    access && navigate("/home");
+  }, [access, navigate]);
 
   const handleChange = (event) => {
     const property = event.target.name;
@@ -41,7 +27,7 @@ const LoginForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    login(userData);
+    dispatch(login(userData))
   };
 
   return (
@@ -59,7 +45,7 @@ const LoginForm = () => {
       <div>
         <label htmlFor='password'>Password:</label>
         <input
-          type='text'
+          type='password'
           name='password'
           value={userData.password}
           onChange={handleChange}

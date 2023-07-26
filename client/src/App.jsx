@@ -1,10 +1,18 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
+import {Nav} from "./components"
 import { Detail, Form, Home, Landing } from "./views";
 
 function App() {
+  
+  const location = useLocation()
+
+
   return (
     <div>
+      {location.pathname !== "/" && (
+        <Nav />
+      )}
       <Routes>
         <Route path='/' element={<Landing />} />
         <Route path='/home' element={<Home />} />

@@ -11,35 +11,35 @@ const URL = "http://localhost:3001/rickandmorty/";
 
 const App = () => {
   const [characters, setCharacters] = useState([]);
-  const [access, setAccess] = useState(false);
+  //const [access, setAccess] = useState(false);
 
   const dispatch = useDispatch();
 
   const location = useLocation();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
-  useEffect(() => {
-    !access && navigate("/");
-  }, [access]);
+  // useEffect(() => {
+  //   !access && navigate("/");
+  // }, [access]);
 
-  const login = async (userData) => {
-    try {
-      const { email, password } = userData;
-      const loginURL = URL + `login/?email=${email}&password=${password}`;
+  // const login = async (userData) => {
+  //   try {
+  //     const { email, password } = userData;
+  //     const loginURL = URL + `login/?email=${email}&password=${password}`;
 
-      const { data } = await axios(loginURL);
-      const { access } = data;
-      setAccess(access);
-      access && navigate("/home");
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  //     const { data } = await axios(loginURL);
+  //     const { access } = data;
+  //     setAccess(access);
+  //     access && navigate("/home");
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
 
-  const logout = () => {
-    setAccess(false);
-    navigate("/");
-  };
+  // const logout = () => {
+  //   setAccess(false);
+  //   navigate("/");
+  // };
 
   const onSearch = async (id) => {
     try {
