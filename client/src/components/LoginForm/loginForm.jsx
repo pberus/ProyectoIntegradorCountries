@@ -1,22 +1,12 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { login } from "../../redux/actions";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 
-const LoginForm = () => {
+const LoginForm = ({ login }) => {
+  
   const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
-  
-  const access = useSelector(state => state.access)
-  const dispatch = useDispatch()
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    access && navigate("/home");
-  }, [access]);
 
   const handleChange = (event) => {
     const property = event.target.name;
@@ -27,7 +17,7 @@ const LoginForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    dispatch(login(userData))
+    login(userData);
   };
 
   return (

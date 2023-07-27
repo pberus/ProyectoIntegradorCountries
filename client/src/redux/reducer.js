@@ -1,35 +1,38 @@
-import { LOGIN, LOGOUT, SEARCHCOUNTRY, GETALLCOUNTRIES, RESETCOUNTRY } from "./actions";
+import {
+  SEARCHCOUNTRY,
+  GETALLCOUNTRIES,
+  RESETCOUNTRY,
+  ONCLOSE,
+} from "./actions";
 
-const initialState = { access: false, allCountries: [], myCountries: [] };
+const initialState = { allCountries: [], myCountries: [] };
 
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case LOGIN:
-      return {
-        ...state,
-        access: payload,
-      };
-    case LOGOUT:
-      return {
-        ...state,
-        access: false,
-      };
     case SEARCHCOUNTRY:
       return {
         ...state,
         myCountries: [payload],
       };
     case GETALLCOUNTRIES:
+      console.log("Reducer - Payload:", payload);
       return {
         ...state,
-        allCountries: [payload],
-        myCountries: [payload]
-      }
+        allCountries: payload,
+        myCountries: payload,
+      };
+    case ONCLOSE:
+      return {
+        ...state,
+        myCountries: state.myCountries.filter(
+          (country) => country.ID !== payload
+        ),
+      };
     case RESETCOUNTRY:
       return {
         ...state,
-        myCountries: [...state.allCountries]
-      }
+        myCountries: [...state.allCountries],
+      };
     default:
       return { ...state };
   }

@@ -1,9 +1,11 @@
+/* eslint-disable react/prop-types */
 import { LoginForm } from "../../components/index.js";
 
-const Landing = () => {
+const Landing = ({login}) => {
+  
   return (
     <div>
-      <LoginForm />
+      <LoginForm login={login}/>
     </div>
   );
 };

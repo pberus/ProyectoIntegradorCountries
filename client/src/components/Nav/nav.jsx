@@ -1,20 +1,10 @@
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { logout } from "../../redux/actions";
+/* eslint-disable react/prop-types */
 import { SearchBar } from "../../components";
 
-const Nav = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/");
-  };
-
+const Nav = ({logout}) => {
   return (
     <div>
-      <button onClick={handleLogout}>Logout</button>
+      <button onClick={logout}>Logout</button>
       <SearchBar />
     </div>
   );

@@ -45,6 +45,7 @@ const SearchBar = () => {
 
   const handleRandom = () => {
     const randomIndex = Math.floor(Math.random() * myCountries.length);
+    console.log(myCountries);
     const { name } = myCountries[randomIndex];
     onSearch(name);
     setName("");
