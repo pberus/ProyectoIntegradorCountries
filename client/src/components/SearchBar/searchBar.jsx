@@ -11,19 +11,22 @@ const SearchBar = () => {
 
   const dispatch = useDispatch();
 
-  const myCountries = useSelector((state) => state.myCountries);
+  const { myCountries, newCountries } = useSelector((state) => ({
+    myCountries: state.myCountries,
+    newCountries: state.newCountries,
+  }));
 
   const onSearch = async (name) => {
     try {
       const searchURL = countriesURL + `name?name=${name}`;
       const { data } = await axios(searchURL);
 
-      // const countryRepeted = myCountries.find(
-      //   (country) => country.ID === data.ID
-      // );
+      const countryRepeted = newCountries.find(
+        (country) => country.ID === data.ID
+      );
 
-      // if (countryRepeted)
-      //   return alert("You already added a country with that ID");
+      if (countryRepeted)
+        return alert("You already added a country with that ID");
 
       dispatch(removeMyCountries());
       dispatch(searchCountry(data));
@@ -50,7 +53,7 @@ const SearchBar = () => {
     const { name } = myCountries[randomIndex];
     onSearch(name);
     setName("");
-  };
+  }; //! Arreglarlo y hacer que si apreto random me agregue el pais a newCountries, y pueda agregar todos los que quiera.
 
 const handleReset = ()=>{
   dispatch(resetCountries())

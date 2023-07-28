@@ -1,0 +1,4 @@
+EXPLICACION LOGICA DEL PROYECTO: 
+
+Cuando home esta vacio, guardo todos los countries en dos arrays (myCountries y allCountries) y Cards muestra los myCountries. Si elimino alguno, sigue el resto, no se restablecen. SI BUSCO CON EL SEARCH, los myCountries se borran (igualmente tengo una copia de respaldo en allCountries que guarde al principio), guardo el newCountry dentro de newCountries y, Card, ya que myCountries esta vacio, muestra newCountries. Asi con cada newCountry ingresado. Si hago close a todos los newCountries o a todos los myCountries, se vuelven a restablecer todos los myCountries (traidos desde la copia de respaldo, allCountries).
+          
