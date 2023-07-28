@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { searchCountry } from "../../redux/actions";
+import { removeMyCountries, resetCountries, searchCountry } from "../../redux/actions";
 import { useSelector } from "react-redux";
 
 const countriesURL = "http://localhost:3001/countries/";
@@ -18,14 +18,15 @@ const SearchBar = () => {
       const searchURL = countriesURL + `name?name=${name}`;
       const { data } = await axios(searchURL);
 
-      const countryRepeted = myCountries.find(
-        (country) => country.ID === data.ID
-      );
+      // const countryRepeted = myCountries.find(
+      //   (country) => country.ID === data.ID
+      // );
 
-      if (countryRepeted)
-        return alert("You already added a country with that ID");
+      // if (countryRepeted)
+      //   return alert("You already added a country with that ID");
 
-      return dispatch(searchCountry(data));
+      dispatch(removeMyCountries());
+      dispatch(searchCountry(data));
     } catch (error) {
       error.response && error.response.data
         ? alert(error.response.data)
@@ -51,6 +52,10 @@ const SearchBar = () => {
     setName("");
   };
 
+const handleReset = ()=>{
+  dispatch(resetCountries())
+}
+
   return (
     <div>
       <input
@@ -61,6 +66,7 @@ const SearchBar = () => {
       />
       <button onClick={handleSearch}>Search</button>
       <button onClick={handleRandom}>Random</button>
+      <button onClick={handleReset}>RESET</button>
     </div>
   );
 };

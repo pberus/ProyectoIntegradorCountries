@@ -8,8 +8,10 @@ const getCountryByNameController = async (name) => {
         [Op.iLike]: `%${name}`,
       },
     },
+    attributes: ["ID", "flag", "name", "continents", "population"],
     include: {
       model: Activity,
+      attributes: ["season"],
       through: {
         attributes: [],
       },

@@ -1,1 +1,1 @@
-SELECT * FROM "Activities" JOIN "Countries" ON 
+SELECT capital FROM "Countries"

@@ -1,37 +1,55 @@
 import {
-  SEARCHCOUNTRY,
-  GETALLCOUNTRIES,
-  RESETCOUNTRY,
-  ONCLOSE,
+  GET_ALL_COUNTRIES,
+  GET_COUNTRY_BY_ID,
+  ON_CLOSE,
+  REMOVE_DETAIL,
+  REMOVE_MY_COUNTRIES,
+  RESET_COUNTRIES,
+  SEARCH_COUNTRY,
 } from "./actions";
 
-const initialState = { allCountries: [], myCountries: [] };
+const initialState = { allCountries: [], myCountries: [], countryDetail: {} };
 
 const rootReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case SEARCHCOUNTRY:
+    case SEARCH_COUNTRY:
       return {
         ...state,
         myCountries: [payload],
       };
-    case GETALLCOUNTRIES:
+    case GET_ALL_COUNTRIES:
       console.log("Reducer - Payload:", payload);
       return {
         ...state,
         allCountries: payload,
         myCountries: payload,
       };
-    case ONCLOSE:
+    case ON_CLOSE:
       return {
         ...state,
         myCountries: state.myCountries.filter(
           (country) => country.ID !== payload
         ),
       };
-    case RESETCOUNTRY:
+    case GET_COUNTRY_BY_ID:
       return {
         ...state,
-        myCountries: [...state.allCountries],
+        countryDetail: payload,
+      };
+    case REMOVE_DETAIL:
+      return {
+        ...state,
+        countryDetail: {},
+      };
+    case REMOVE_MY_COUNTRIES:
+      return {
+        ...state,
+        myCountries: [],
+      };
+    case RESET_COUNTRIES:
+      return {
+        ...state,
+        myCountries: state.allCountries,
       };
     default:
       return { ...state };

@@ -4,8 +4,9 @@ const getCountryByIdController = async (id) => {
   return await Country.findByPk(id, {
     include: {
       model: Activity,
+      attributes: ["name"],
       through: {
-        attritubes: [],
+        attributes: [],
       },
     },
   });
