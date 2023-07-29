@@ -6,7 +6,7 @@ import { getCountryById, removeDetail } from "../../redux/actions";
 const Detail = () => {
   const { ID } = useParams();
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const {

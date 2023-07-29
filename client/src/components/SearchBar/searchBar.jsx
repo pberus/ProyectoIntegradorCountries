@@ -1,19 +1,24 @@
+/* eslint-disable react/prop-types */
 import axios from "axios";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { removeMyCountries, resetCountries, searchCountry } from "../../redux/actions";
+import {
+  removeMyCountries,
+  resetCountries,
+  searchCountry,
+} from "../../redux/actions";
 import { useSelector } from "react-redux";
 
 const countriesURL = "http://localhost:3001/countries/";
 
-const SearchBar = () => {
+const SearchBar = ({handleResetFilterOrder}) => {
   const [name, setName] = useState("");
 
   const dispatch = useDispatch();
 
-  const { myCountries, newCountries } = useSelector((state) => ({
-    myCountries: state.myCountries,
+  const { newCountries, allCountries } = useSelector((state) => ({
     newCountries: state.newCountries,
+    allCountries: state.allCountries,
   }));
 
   const onSearch = async (name) => {
@@ -48,16 +53,16 @@ const SearchBar = () => {
   };
 
   const handleRandom = () => {
-    const randomIndex = Math.floor(Math.random() * myCountries.length);
-    console.log(myCountries);
-    const { name } = myCountries[randomIndex];
+    const randomIndex = Math.floor(Math.random() * allCountries.length);
+    const { name } = allCountries[randomIndex];
     onSearch(name);
     setName("");
-  }; //! Arreglarlo y hacer que si apreto random me agregue el pais a newCountries, y pueda agregar todos los que quiera.
+  };
 
-const handleReset = ()=>{
-  dispatch(resetCountries())
-}
+  const handleReset = () => {
+    dispatch(resetCountries());
+    handleResetFilterOrder()
+  };
 
   return (
     <div>
