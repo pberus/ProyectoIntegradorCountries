@@ -24,20 +24,27 @@ const initialState = {
 const rootReducer = (state = initialState, { type, payload }) => {
   let aux; //La declaro para que los backUps sean iguales a los otros con lo que se haya aplicado en el momento de cada case. Si no declaro esta variable, por ej, en el caso del filter el backUp no iba a recibir el array con el filter aplicado.
   let sortFunction; //*Para ORDER_CARDS
-  const compareStringsSecondary = (a, b) => { //* Para ORDER_CARDS
-    //?funcion para que si ambas letras son iguales, que compare con las siguientes y asi.
+  const compareStringsSecondary = (a, b, i = 0) => { //* Para ORDER_CARDS
     if (a === b) {
       return 0;
     }
-    console.log(a, b);
-    const firstComparison = a[0].localeCompare(b[0]);
-    console.log(firstComparison);
-    if (firstComparison !== 0) {
-      return firstComparison;
+  
+    if (i >= a.length) {
+      return -1; // a es más corto que b
     }
-    return compareStringsSecondary(a.slice(1), b.slice(1));
+  
+    if (i >= b.length) {
+      return 1; // b es más corto que a
+    }
+  
+    const comparison = a[i].localeCompare(b[i]);
+    if (comparison !== 0) {
+      return comparison;
+    }
+  
+    return compareStringsSecondary(a, b, i + 1);
   };
-
+  
   switch (type) {
     case SEARCH_COUNTRY:
       aux = [payload, ...state.newCountries]; //esta al revez porque quiero que el country se ponga primero en el array
