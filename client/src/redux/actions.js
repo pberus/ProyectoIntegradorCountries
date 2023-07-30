@@ -10,7 +10,7 @@ export const RESET_COUNTRIES = "RESET_COUNTRIES";
 export const REMOVE_MY_COUNTRIES = "REMOVE_MY_COUNTRIES";
 export const FILTER_CARDS = "FILTER_CARDS";
 export const ORDER_CARDS = "ORDER_CARDS";
-export const RESET_FILTER = "RESET_FILTER"
+export const RESET_FILTER = "RESET_FILTER";
 
 const URL = "http://localhost:3001/";
 
@@ -78,8 +78,18 @@ export const filterCards = (filter) => {
   };
 };
 
-export const resetFilter = ()=>{
+export const orderCards = (atribute, order) => {
+  return {
+    type: ORDER_CARDS,
+    payload: {
+      atribute,
+      order,
+    },
+  };
+};
+
+export const resetFilter = () => {
   return {
     type: RESET_FILTER,
-  }
-}
+  };
+};

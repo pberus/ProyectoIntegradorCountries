@@ -105,4 +105,32 @@ case FILTER:
 
 
 
+      const ordenReducer = (state = initialState, action) => {
+        switch (action.type) {
+          case 'APLICAR_ORDEN':
+            return {
+              ...state,
+              data: [...state.data].sort((a, b) => {
+                if (action.payload.tipo === 'alfabeticoNombre') {
+                  const aHasActivities = a.Activities.length > 0;
+                  const bHasActivities = b.Activities.length > 0;
+      
+                  if (!aHasActivities && bHasActivities) {
+                    return 1; // Colocar b antes que a (porque a tiene Activities vacío)
+                  } else if (aHasActivities && !bHasActivities) {
+                    return -1; // Colocar a antes que b (porque b tiene Activities vacío)
+                  } else {
+                    return action.payload.orden === 'ascendente'
+                      ? a.Activities[0].name.localeCompare(b.Activities[0].name)
+                      : b.Activities[0].name.localeCompare(a.Activities[0].name);
+                  }
+                }
+                return 0;
+              }),
+              tipoOrden: action.payload.tipo,
+            };
+          default:
+            return state;
+        }
+      };
       
