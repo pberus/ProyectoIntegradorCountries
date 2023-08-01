@@ -11,7 +11,7 @@ const postActivityController = async (
     where: {
       name,
       difficulty,
-      duration,
+      duration: duration.toString(),
       season,
     },
   });

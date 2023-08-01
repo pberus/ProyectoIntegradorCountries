@@ -18,6 +18,7 @@ const postActivityHandler = async (req, res) => {
     
     return res.json(activity);
   } catch (error) {
+    console.log(error);
     error instanceof Error
       ? res.status(404).send(error.message)
       : res.status(500).send(error.message);

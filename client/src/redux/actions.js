@@ -11,6 +11,7 @@ export const REMOVE_MY_COUNTRIES = "REMOVE_MY_COUNTRIES";
 export const FILTER_CARDS = "FILTER_CARDS";
 export const ORDER_CARDS = "ORDER_CARDS";
 export const RESET_FILTER = "RESET_FILTER";
+export const REMOVE_COUNTRIES = "REMOVE_COUNTRIES";
 
 const URL = "http://localhost:3001/";
 

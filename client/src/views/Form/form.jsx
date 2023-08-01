@@ -1,15 +1,12 @@
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import ActivityForm from "../../components/ActivityForm/activityForm";
 
-const Form = ()=>{
-    const access = useSelector(state => state.access)
-  const navigate = useNavigate()
+const Form = () => {
+  return (
+    <div>
+      <h1>Este es el form para crear una ACTIVIDAD TURISTICA</h1>
+      <ActivityForm />
+    </div>
+  );
+};
 
-  useEffect(() => {
-    !access && navigate("/");
-  }, [access]);
-    return <><h1>Este es el form</h1></>
-}
-
-export default Form
+export default Form;
