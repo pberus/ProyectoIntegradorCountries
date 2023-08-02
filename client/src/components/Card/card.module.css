@@ -1,0 +1,6 @@
+.Card {
+    border: solid gray 3px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+  }

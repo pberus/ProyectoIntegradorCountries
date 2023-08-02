@@ -1,0 +1,6 @@
+.Landing {
+  background-image: url("../../assets/fondoPaises.jpg");
+  background-size: cover;
+  height: 100vh;
+  width: 100vh;
+}

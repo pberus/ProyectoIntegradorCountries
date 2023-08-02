@@ -1,9 +1,11 @@
 /* eslint-disable react/prop-types */
+import style from "./card.module.css";
+
 const ActivityCard = ({ activity }) => {
   const { name, difficulty, duration, season, Countries } = activity;
   
   return (
-    <div>
+    <div className={style.Card}>
       <h4>{name}</h4>
       <h5>Difficulty: {difficulty}</h5>
       <h5>Duration: {duration}</h5>

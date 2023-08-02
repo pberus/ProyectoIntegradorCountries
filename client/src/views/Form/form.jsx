@@ -7,7 +7,7 @@ const Form = () => {
   return (
     <div>
       <button onClick={() => navigate("/home")}>Volver</button>
-      <h1>Este es el form para crear una ACTIVIDAD TURISTICA</h1>
+      <h1>Create Tourist Activity</h1>
       <ActivityForm />
       <h3>OR</h3>
       <button onClick={() => navigate("/activities")}>

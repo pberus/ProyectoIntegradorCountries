@@ -1,0 +1,6 @@
+.homeContainer h1{
+    display: flex;
+    justify-content: center;
+    color: #12b0c9;
+    -webkit-text-stroke: 2px black;
+}

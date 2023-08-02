@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
+import style from "./card.module.css";
 
 const Card = ({ country, handleClose }) => {
   const { ID, flag, name, continents } = country;
@@ -8,7 +9,7 @@ const Card = ({ country, handleClose }) => {
   const location = useLocation();
 
   return (
-    <div>
+    <div className={style.Card}>
       {location.pathname === "/home" && (
         <button onClick={() => handleClose(ID)}>X</button>
       )}

@@ -9,8 +9,9 @@ import {
   resetFilterOrder,
 } from "../../redux/actions";
 import { useLocation } from "react-router-dom";
-import imgOrdenAsce from "../../assets/orden-ascendente(2).png"
-import imgOrdenDesc from "../../assets/orden-descendente(1).png" 
+import imgOrdenAsce from "../../assets/orden-ascendente(1).png"
+import imgOrdenDesc from "../../assets/orden-descendente(2).png"
+import style from "./home.module.css";
 
 //"ascending"
 //"descending"
@@ -49,6 +50,7 @@ const Home = ({ logout }) => {
 
     dispatch(filterCards(value));
     setFilter(value);
+    setOrder("")
   };
 
   const handleOrder = (event) => {
@@ -92,8 +94,8 @@ const Home = ({ logout }) => {
   };
 
   return (
-    <div>
-      <h1>ESTE ES EL HOME</h1>
+    <div className={style.homeContainer}>
+      <h1>App Countries</h1>
       <Nav logout={logout} handleResetFilterOrder={handleResetFilterOrder} />
 
       <div>
