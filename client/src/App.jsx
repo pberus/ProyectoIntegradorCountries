@@ -1,6 +1,6 @@
 import "./App.css";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { Detail, Form, Home, Landing } from "./views";
+import { Activities, Detail, Form, Home, Landing } from "./views";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -27,8 +27,9 @@ function App() {
       setAccess(access);
       access && navigate("/home");
     } catch (error) {
-      console.log(error.response.data);
-      alert(error.response.data);
+      error.response && error.response.data
+        ? alert(error.response.data)
+        : alert(error.message);
     }
   };
 
@@ -44,6 +45,7 @@ function App() {
         <Route path='/home' element={<Home logout={logout}/>} />
         <Route path='/form' element={<Form />} />
         <Route path='/detail/:ID' element={<Detail />} />
+        <Route path="/activities" element={<Activities />}/>
       </Routes>
     </div>
   );

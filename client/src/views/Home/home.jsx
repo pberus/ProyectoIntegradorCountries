@@ -6,7 +6,7 @@ import {
   filterCards,
   getAllCountries,
   orderCards,
-  resetFilter,
+  resetFilterOrder,
 } from "../../redux/actions";
 import { useLocation } from "react-router-dom";
 import imgOrdenAsce from "../../assets/orden-ascendente(2).png"
@@ -43,7 +43,7 @@ const Home = ({ logout }) => {
 
     if (value === "") {
       //Para que al apretar la primera option, se resetee el filtro
-      dispatch(resetFilter());
+      dispatch(resetFilterOrder());
       return setFilter("");
     }
 
@@ -68,7 +68,7 @@ const Home = ({ logout }) => {
   }; //! Terminarlo y chequar las imperfecciones
 
   const handleResetFilterOrder = () => {
-    dispatch(resetFilter());
+    dispatch(resetFilterOrder());
     //! agregar un reserOrder o dejar solo el resetFilter?
     setFilter("");
     setOrder("");
@@ -98,7 +98,7 @@ const Home = ({ logout }) => {
 
       <div>
         <select name='filter' value={filter} onChange={handleFilter}>
-          <option value=''>Select Filter</option>
+          <option value='' disabled>Select Filter</option>
           <optgroup label='Country Continents'>
             <option value='Continent - Africa'>Africa</option>
             <option value='Continent - Antarctica'>Antarctica</option>
@@ -124,7 +124,7 @@ const Home = ({ logout }) => {
         </select>
 
         <select name='order' value={order} onChange={handleOrder}>
-          <option value=''>Select Order</option>
+          <option value='' disabled>Select Order</option>
           <optgroup label='Country'>
             <option value='Country Name'>Name ^ A-Z</option>
             <option value='Capital'>Capital ^ A-Z</option>

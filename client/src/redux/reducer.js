@@ -8,7 +8,8 @@ import {
   REMOVE_DETAIL,
   REMOVE_MY_COUNTRIES,
   RESET_COUNTRIES,
-  RESET_FILTER,
+  RESET_FILTER_ORDER,
+  RESET_WITH_ACTIVITIES,
   SEARCH_COUNTRY,
 } from "./actions";
 
@@ -24,27 +25,28 @@ const initialState = {
 const rootReducer = (state = initialState, { type, payload }) => {
   let aux; //La declaro para que los backUps sean iguales a los otros con lo que se haya aplicado en el momento de cada case. Si no declaro esta variable, por ej, en el caso del filter el backUp no iba a recibir el array con el filter aplicado.
   let sortFunction; //*Para ORDER_CARDS
-  const compareStringsSecondary = (a, b, i = 0) => { //* Para ORDER_CARDS
+  const compareStringsSecondary = (a, b, i = 0) => {
+    //* Para ORDER_CARDS
     if (a === b) {
       return 0;
     }
-  
+
     if (i >= a.length) {
       return -1; // a es más corto que b
     }
-  
+
     if (i >= b.length) {
       return 1; // b es más corto que a
     }
-  
+
     const comparison = a[i].localeCompare(b[i]);
     if (comparison !== 0) {
       return comparison;
     }
-  
+
     return compareStringsSecondary(a, b, i + 1);
   };
-  
+
   switch (type) {
     case SEARCH_COUNTRY:
       aux = [payload, ...state.newCountries]; //esta al revez porque quiero que el country se ponga primero en el array
@@ -166,7 +168,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
       };
     case ORDER_CARDS: //!ORDER CARDS
       //? FUNCION SORT
-      sortFunction = (array)=> {
+      sortFunction = (array) => {
         return array.sort((a, b) => {
           if (payload.atribute === "Country Name") {
             return payload.order === "ascending"
@@ -185,29 +187,29 @@ const rootReducer = (state = initialState, { type, payload }) => {
           }
           if (payload.atribute === "Population") {
             return payload.order === "ascending"
-              ? parseInt(a.population) - parseInt(b.population)
-              : parseInt(b.population) - parseInt(a.population);
+              ? parseInt(b.population) - parseInt(a.population)
+              : parseInt(a.population) - parseInt(b.population);
           }
           if (payload.atribute === "Area") {
             return payload.order === "ascending"
-              ? parseInt(a.area) - parseInt(b.area)
-              : parseInt(b.area) - parseInt(a.area);
+              ? parseInt(b.area) - parseInt(a.area)
+              : parseInt(a.area) - parseInt(b.area);
           }
           //Para ordenar segun las Activities que es un array dentro de cada pais:
           const aHasActivities = a.Activities.length > 0;
           const bHasActivities = b.Activities.length > 0;
           if (payload.atribute === "Activity Name") {
             if (payload.order === "ascending") {
-              if (!aHasActivities && bHasActivities) return -1;
-              if (aHasActivities && !bHasActivities) return 1;
+              if (!aHasActivities && bHasActivities) return 1;
+              if (aHasActivities && !bHasActivities) return -1;
               if (!aHasActivities && !bHasActivities) return 0;
               return compareStringsSecondary(
                 a.Activities[0].name,
                 b.Activities[0].name
               );
             } else {
-              if (!aHasActivities && bHasActivities) return 1;
-              if (aHasActivities && !bHasActivities) return -1;
+              if (!aHasActivities && bHasActivities) return -1;
+              if (aHasActivities && !bHasActivities) return 1;
               if (!aHasActivities && !bHasActivities) return 0;
               return compareStringsSecondary(
                 b.Activities[0].name,
@@ -217,14 +219,6 @@ const rootReducer = (state = initialState, { type, payload }) => {
           }
           if (payload.atribute === "Difficulty") {
             if (payload.order === "ascending") {
-              if (!aHasActivities && bHasActivities) return -1;
-              if (aHasActivities && !bHasActivities) return 1;
-              if (!aHasActivities && !bHasActivities) return 0;
-              return (
-                parseInt(a.Activities[0].difficulty) -
-                parseInt(b.Activities[0].difficulty)
-              );
-            } else {
               if (!aHasActivities && bHasActivities) return 1;
               if (aHasActivities && !bHasActivities) return -1;
               if (!aHasActivities && !bHasActivities) return 0;
@@ -232,18 +226,18 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 parseInt(b.Activities[0].difficulty) -
                 parseInt(a.Activities[0].difficulty)
               );
-            }
-          }
-          if (payload.atribute === "Duration") {
-            if (payload.order === "ascending") {
+            } else {
               if (!aHasActivities && bHasActivities) return -1;
               if (aHasActivities && !bHasActivities) return 1;
               if (!aHasActivities && !bHasActivities) return 0;
               return (
-                parseInt(a.Activities[0].duration) -
-                parseInt(b.Activities[0].duration)
+                parseInt(a.Activities[0].difficulty) -
+                parseInt(b.Activities[0].difficulty)
               );
-            } else {
+            }
+          }
+          if (payload.atribute === "Duration") {
+            if (payload.order === "ascending") {
               if (!aHasActivities && bHasActivities) return 1;
               if (aHasActivities && !bHasActivities) return -1;
               if (!aHasActivities && !bHasActivities) return 0;
@@ -251,20 +245,28 @@ const rootReducer = (state = initialState, { type, payload }) => {
                 parseInt(b.Activities[0].duration) -
                 parseInt(a.Activities[0].duration)
               );
+            } else {
+              if (!aHasActivities && bHasActivities) return -1;
+              if (aHasActivities && !bHasActivities) return 1;
+              if (!aHasActivities && !bHasActivities) return 0;
+              return (
+                parseInt(a.Activities[0].duration) -
+                parseInt(b.Activities[0].duration)
+              );
             }
           }
           //ESTE ULTIMO SERIA PARA if(payload.atribute === "Season")
           if (payload.order === "ascending") {
-            if (!aHasActivities && bHasActivities) return -1;
-            if (aHasActivities && !bHasActivities) return 1;
+            if (!aHasActivities && bHasActivities) return 1;
+            if (aHasActivities && !bHasActivities) return -1;
             if (!aHasActivities && !bHasActivities) return 0;
             return compareStringsSecondary(
               a.Activities[0].season,
               b.Activities[0].season
             );
           }
-          if (!aHasActivities && bHasActivities) return 1;
-          if (aHasActivities && !bHasActivities) return -1;
+          if (!aHasActivities && bHasActivities) return -1;
+          if (aHasActivities && !bHasActivities) return 1;
           if (!aHasActivities && !bHasActivities) return 0;
           return compareStringsSecondary(
             b.Activities[0].season,
@@ -283,7 +285,7 @@ const rootReducer = (state = initialState, { type, payload }) => {
         ...state,
         newCountries: sortFunction([...state.newCountries]),
       };
-    case RESET_FILTER:
+    case RESET_FILTER_ORDER:
       if (state.myCountriesBackUp.length) {
         return {
           ...state,
@@ -294,6 +296,15 @@ const rootReducer = (state = initialState, { type, payload }) => {
       return {
         ...state,
         newCountries: state.newCountriesBackUp,
+      };
+    case RESET_WITH_ACTIVITIES:
+      return {
+        ...state,
+        allCountries: [],
+        myCountries: [],
+        myCountriesBackUp: [],
+        newCountries: [],
+        newCountriesBackUp: [],
       };
     default:
       return { ...state };

@@ -10,8 +10,9 @@ export const RESET_COUNTRIES = "RESET_COUNTRIES";
 export const REMOVE_MY_COUNTRIES = "REMOVE_MY_COUNTRIES";
 export const FILTER_CARDS = "FILTER_CARDS";
 export const ORDER_CARDS = "ORDER_CARDS";
-export const RESET_FILTER = "RESET_FILTER";
+export const RESET_FILTER_ORDER = "RESET_FILTER_ORDER";
 export const REMOVE_COUNTRIES = "REMOVE_COUNTRIES";
+export const RESET_WITH_ACTIVITIES = "RESET_WITH_ACTIVITIES";
 
 const URL = "http://localhost:3001/";
 
@@ -30,6 +31,7 @@ export const getAllCountries = () => {
       return dispatch({ type: GET_ALL_COUNTRIES, payload: data });
     } catch (error) {
       console.log("Action - Error:", error.response);
+      alert(error.message);
     }
   };
 };
@@ -54,7 +56,9 @@ export const getCountryById = (ID) => {
       const { data } = await axios(URL + `countries/${ID}`);
       return dispatch({ type: GET_COUNTRY_BY_ID, payload: data });
     } catch (error) {
-      console.log(error.response);
+      error.response && error.response.data
+        ? alert(error.response.data)
+        : alert(error.message);
     }
   };
 };
@@ -89,8 +93,14 @@ export const orderCards = (atribute, order) => {
   };
 };
 
-export const resetFilter = () => {
+export const resetFilterOrder = () => {
   return {
-    type: RESET_FILTER,
+    type: RESET_FILTER_ORDER,
+  };
+};
+
+export const resetWithActivities = () => {
+  return {
+    type: RESET_WITH_ACTIVITIES,
   };
 };

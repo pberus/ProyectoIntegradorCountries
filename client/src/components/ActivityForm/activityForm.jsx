@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { resetWithActivities } from "../../redux/actions";
 
 const URL = "http://localhost:3001/activities";
 
@@ -18,20 +19,25 @@ const ActivityForm = () => {
   const allCountries = useSelector((state) => state.allCountries);
   const countriesCopied = [...allCountries];
 
+  const dispatch = useDispatch();
+
   const createActivity = async (formValues) => {
     try {
       const { data } = await axios.post(URL, formValues);
       if (data.name) {
         setCreated(true);
         alert("Activity created successfully");
+        dispatch(resetWithActivities());
       }
     } catch (error) {
-      alert(error.message);
+      error.response && error.response.data
+        ? alert(error.response.data)
+        : alert(error.message);
     }
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     createActivity(activityValues);
   };
 
@@ -58,6 +64,13 @@ const ActivityForm = () => {
   };
 
   const handleClick = () => {
+    setActivityValues({
+      name: "",
+      difficulty: "",
+      duration: "",
+      season: "",
+      countriesId: [],
+    });
     setCreated(false);
   };
 
@@ -117,7 +130,7 @@ const ActivityForm = () => {
             </select>
           </div>
           <div>
-            <label htmlFor='countries'>Select country/es</label>
+            <label htmlFor='countries'>Select country/es: </label>
             <select
               name='countries'
               value={activityValues.countriesId}
@@ -137,7 +150,9 @@ const ActivityForm = () => {
           <button type='submit'>Create</button>
         </form>
       ) : (
-        <button onClick={handleClick}>Create another activity</button>
+        <button onClick={handleClick}>
+          Do you want to create another activity?
+        </button>
       )}
     </div>
   );

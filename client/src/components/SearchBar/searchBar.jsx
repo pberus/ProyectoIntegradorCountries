@@ -35,6 +35,7 @@ const SearchBar = ({handleResetFilterOrder}) => {
 
       dispatch(removeMyCountries());
       dispatch(searchCountry(data));
+      handleResetFilterOrder()
     } catch (error) {
       error.response && error.response.data
         ? alert(error.response.data)

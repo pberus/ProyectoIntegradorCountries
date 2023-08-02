@@ -5,7 +5,7 @@ const postActivityHandler = async (req, res) => {
     const { name, difficulty, duration, season, countriesId } = req.body;
 
     if (!name || !difficulty || !duration || !season) {
-      throw new Error("Missing activity data");
+      throw new Error("Missing data");
     }
 
     const activity = await postActivityController(
@@ -18,7 +18,6 @@ const postActivityHandler = async (req, res) => {
     
     return res.json(activity);
   } catch (error) {
-    console.log(error);
     error instanceof Error
       ? res.status(404).send(error.message)
       : res.status(500).send(error.message);
