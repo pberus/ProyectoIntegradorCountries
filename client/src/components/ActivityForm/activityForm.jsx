@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetWithActivities } from "../../redux/actions";
-import validate from "./validate";
+import validateField from "./validate";
 
 const URL = "http://localhost:3001/activities";
 
@@ -22,7 +22,6 @@ const ActivityForm = () => {
     season: "",
     countriesId: "",
   });
-  const [showErrors, setShowErrors] = useState(false);
 
   const [created, setCreated] = useState(false);
 
@@ -48,25 +47,20 @@ const ActivityForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setErrors(validate(activityValues))
-    setShowErrors(true)
     createActivity(activityValues);
   };
 
   const handleChange = (event) => {
-    const property = event.target.name;
-    const value = event.target.value;
+    const {name, value} = event.target
 
     setActivityValues({
       ...activityValues,
-      [property]: value,
+      [name]: value,
     });
-    setErrors(
-      validate({
-        ...activityValues,
-        [property]: value,
+    setErrors({
+        ...errors,
+        [name]: validateField(name, value),
       })
-    );
   };
 
   const handleChangeCountries = (event) => {
@@ -79,10 +73,12 @@ const ActivityForm = () => {
       ...activityValues,
       countriesId: selectedOptions,
     });
-    setErrors(validate({
-      ...activityValues,
-      countriesId: selectedOptions,
-    }))
+    setErrors(
+      {
+        ...errors,
+        countriesId: validateField("countriesId", selectedOptions),
+      }
+    );
   };
 
   const handleClick = () => {
@@ -93,6 +89,13 @@ const ActivityForm = () => {
       season: "",
       countriesId: [],
     });
+    setErrors({
+      name: "",
+    difficulty: "",
+    duration: "",
+    season: "",
+    countriesId: "",
+    })
     setCreated(false);
   };
 
@@ -108,7 +111,7 @@ const ActivityForm = () => {
               value={activityValues.name}
               onChange={handleChange}
             />
-            {showErrors && errors.name && <span>{errors.name}</span>}
+            {errors.name && <span>{errors.name}</span>}
           </div>
           <div>
             <label htmlFor='difficulty'>Select difficulty:</label>
@@ -126,7 +129,9 @@ const ActivityForm = () => {
               <option value='4'>Difficulty 4</option>
               <option value='5'>Difficulty 5</option>
             </select>
-            {showErrors && errors.difficulty && <span>{errors.difficulty}</span>}
+            {errors.difficulty && (
+              <span>{errors.difficulty}</span>
+            )}
           </div>
           <div>
             <label htmlFor='duration'>Duration (hr):</label>
@@ -136,7 +141,7 @@ const ActivityForm = () => {
               value={activityValues.duration}
               onChange={handleChange}
             />
-            {showErrors && errors.duration && <span>{errors.duration}</span>}
+            {errors.duration && <span>{errors.duration}</span>}
           </div>
           <div>
             <label htmlFor='season'>Select season:</label>
@@ -153,7 +158,7 @@ const ActivityForm = () => {
               <option value='Winter'>Winter</option>
               <option value='Spring'>Spring</option>
             </select>
-            {showErrors && errors.season && <span>{errors.season}</span>}
+            {errors.season && <span>{errors.season}</span>}
           </div>
           <div>
             <label htmlFor='countries'>Select country/es: </label>
@@ -172,7 +177,9 @@ const ActivityForm = () => {
                 </option>
               ))}
             </select>
-            {showErrors && errors.countriesId && <span>{errors.countriesId}</span>}
+            {errors.countriesId && (
+              <span>{errors.countriesId}</span>
+            )}
           </div>
           <button type='submit'>Create</button>
         </form>
