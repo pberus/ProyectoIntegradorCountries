@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetWithActivities } from "../../redux/actions";
+import validate from "./validate";
 
 const URL = "http://localhost:3001/activities";
 
@@ -13,6 +14,15 @@ const ActivityForm = () => {
     season: "",
     countriesId: [],
   });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    difficulty: "",
+    duration: "",
+    season: "",
+    countriesId: "",
+  });
+  const [showErrors, setShowErrors] = useState(false);
 
   const [created, setCreated] = useState(false);
 
@@ -38,6 +48,8 @@ const ActivityForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    setErrors(validate(activityValues))
+    setShowErrors(true)
     createActivity(activityValues);
   };
 
@@ -49,6 +61,12 @@ const ActivityForm = () => {
       ...activityValues,
       [property]: value,
     });
+    setErrors(
+      validate({
+        ...activityValues,
+        [property]: value,
+      })
+    );
   };
 
   const handleChangeCountries = (event) => {
@@ -61,6 +79,10 @@ const ActivityForm = () => {
       ...activityValues,
       countriesId: selectedOptions,
     });
+    setErrors(validate({
+      ...activityValues,
+      countriesId: selectedOptions,
+    }))
   };
 
   const handleClick = () => {
@@ -86,6 +108,7 @@ const ActivityForm = () => {
               value={activityValues.name}
               onChange={handleChange}
             />
+            {showErrors && errors.name && <span>{errors.name}</span>}
           </div>
           <div>
             <label htmlFor='difficulty'>Select difficulty:</label>
@@ -103,6 +126,7 @@ const ActivityForm = () => {
               <option value='4'>Difficulty 4</option>
               <option value='5'>Difficulty 5</option>
             </select>
+            {showErrors && errors.difficulty && <span>{errors.difficulty}</span>}
           </div>
           <div>
             <label htmlFor='duration'>Duration (hr):</label>
@@ -112,6 +136,7 @@ const ActivityForm = () => {
               value={activityValues.duration}
               onChange={handleChange}
             />
+            {showErrors && errors.duration && <span>{errors.duration}</span>}
           </div>
           <div>
             <label htmlFor='season'>Select season:</label>
@@ -128,6 +153,7 @@ const ActivityForm = () => {
               <option value='Winter'>Winter</option>
               <option value='Spring'>Spring</option>
             </select>
+            {showErrors && errors.season && <span>{errors.season}</span>}
           </div>
           <div>
             <label htmlFor='countries'>Select country/es: </label>
@@ -146,6 +172,7 @@ const ActivityForm = () => {
                 </option>
               ))}
             </select>
+            {showErrors && errors.countriesId && <span>{errors.countriesId}</span>}
           </div>
           <button type='submit'>Create</button>
         </form>

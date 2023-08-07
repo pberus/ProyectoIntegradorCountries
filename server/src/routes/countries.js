@@ -8,7 +8,7 @@ const routerCountries = require("express").Router();
 routerCountries.get("/", getAllCountriesHandler);
 routerCountries.get("/name", getCountryByNameHandler);
 routerCountries.get("/:idPais", getCountryByIdHandler);
-routerCountries.get("/maxpopulation", getCountryMaxPopulationHandler)
+//routerCountries.get("/maxpopulation", getCountryMaxPopulationHandler)
 
 
 module.exports = routerCountries;
