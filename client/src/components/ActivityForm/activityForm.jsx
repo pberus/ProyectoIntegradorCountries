@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetWithActivities } from "../../redux/actions";
+import { getAllCountries, resetWithActivities } from "../../redux/actions";
 import validateField from "./validate";
 
 const URL = "http://localhost:3001/activities";
@@ -26,7 +26,11 @@ const ActivityForm = () => {
   const [created, setCreated] = useState(false);
 
   const allCountries = useSelector((state) => state.allCountries);
-  const countriesCopied = [...allCountries];
+  const  [countriesCopied, setCountriesCopied] = useState([]);
+
+  useEffect(()=>{
+    setCountriesCopied(allCountries)
+  }, [allCountries])
 
   const dispatch = useDispatch();
 
@@ -37,6 +41,7 @@ const ActivityForm = () => {
         setCreated(true);
         alert("Activity created successfully");
         dispatch(resetWithActivities());
+        dispatch(getAllCountries()) //si no vuelvo a traer los paises, al aplicar resetWithActivities allCountries queda vacio hasta que vuelva al home. Se vuelven a guardar con el useEffect ya que tiene allCountries como dependencia
       }
     } catch (error) {
       error.response && error.response.data

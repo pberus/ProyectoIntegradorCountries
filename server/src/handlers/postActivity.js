@@ -1,5 +1,8 @@
 const postActivityController = require("../controllers/postActivity");
 
+const regexNotNumbers = /^[^\d]+$/;
+const regexNumbers = /^[0-9]+$/;
+
 const postActivityHandler = async (req, res) => {
   try {
     const { name, difficulty, duration, season, countriesId } = req.body;
@@ -8,6 +11,14 @@ const postActivityHandler = async (req, res) => {
       throw new Error("Missing data");
     }
 
+    if (
+      !regexNotNumbers.test(name) ||
+      name.length > 20 ||
+      !regexNumbers.test(duration) ||
+      Number(duration) > 24
+    )
+      throw new Error("Does not meet all the requirements");
+
     const activity = await postActivityController(
       name,
       difficulty,
@@ -15,7 +26,7 @@ const postActivityHandler = async (req, res) => {
       season,
       countriesId
     );
-    
+
     return res.json(activity);
   } catch (error) {
     error instanceof Error
