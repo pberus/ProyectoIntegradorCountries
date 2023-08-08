@@ -22,6 +22,7 @@ const Cards = () => {
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
+    setCurrentPage(0)
     setMyCountriesPaginated(myCountries.slice(0, countriesPerPage));
     setNewCountriesPaginated(newCountries.slice(0, countriesPerPage));
   }, [myCountries, newCountries]);
@@ -75,13 +76,15 @@ const Cards = () => {
     }
   };
 
+  //se pone currentPage + 1 porque empieza en la 0
+
   return (
     <div>
       <h3>Page {currentPage + 1}</h3>
       <button onClick={prevHandler} disabled={currentPage === 0}>
         Prev
       </button>
-      <button onClick={nextHandler} disabled={myCountriesPaginated.length < countriesPerPage}>
+      <button onClick={nextHandler} disabled={(myCountries.length ? myCountriesPaginated.length : newCountriesPaginated.length) < countriesPerPage || (myCountries.length ? myCountries.length : newCountries.length) === (currentPage + 1) * countriesPerPage }> 
         Next
       </button>
       <div className={style.cardsContainer}>

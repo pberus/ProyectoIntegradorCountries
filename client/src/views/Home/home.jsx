@@ -26,6 +26,7 @@ const Home = ({ logout }) => {
   }));
 
   useEffect(() => {
+    dispatch(resetFilterOrder()) //puse esto porque al guardar los valores del filtro y orden en estados locales, al volver a cargar la pagina se restablecen, pero los countries no porque son estados globales. Si lo quiero es mantener los paises y los filtros y ordenes, tengo que establecerlos como estados globales. 
     location.pathname === "/home" &&
       !myCountries.length &&
       !newCountries.length &&
@@ -36,21 +37,15 @@ const Home = ({ logout }) => {
   const [order, setOrder] = useState("");
   const [ordenAsc, setOrdenAsc] = useState(true);
   const [aux, setAux] = useState(false);
-  const [orderValue, setOrderValue] = useState("Name");
+  const [orderValue, setOrderValue] = useState("Country Name");
 
   const handleFilter = (event) => {
     event.preventDefault();
     const value = event.target.value;
 
-    if (value === "") {
-      //Para que al apretar la primera option, se resetee el filtro
-      dispatch(resetFilterOrder());
-      return setFilter("");
-    }
-
     dispatch(filterCards(value));
     setFilter(value);
-    setOrder("")
+    setOrder("") //lo puse asi porque no se como hacer para mantener el orden cuando cambio el filtro
   };
 
   const handleOrder = (event) => {
@@ -67,11 +62,10 @@ const Home = ({ logout }) => {
     dispatch(orderCards(value, "descending"));
     setAux(!aux);
     return setOrder(value);
-  }; //! Terminarlo y chequar las imperfecciones
+  }; 
 
   const handleResetFilterOrder = () => {
     dispatch(resetFilterOrder());
-    //! agregar un reserOrder o dejar solo el resetFilter?
     setFilter("");
     setOrder("");
   };
