@@ -1,0 +1,10 @@
+.Detail{
+    display: flex;
+    flex-direction: column;
+    border: 5px solid white;
+}
+
+h1{
+    color: black;
+  -webkit-text-stroke: 2px white;
+}

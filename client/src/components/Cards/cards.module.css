@@ -4,6 +4,12 @@
     padding: 40px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 70px;
+    grid-gap: 50px;
     justify-content: center;
+  }
+
+  h3{
+    color: white;
+    -webkit-text-stroke: 0.5px black;
+    border: 2px solid white;
   }

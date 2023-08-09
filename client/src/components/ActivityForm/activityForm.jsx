@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCountries, resetWithActivities } from "../../redux/actions";
 import validateField from "./validate";
+import style from "./activityForm.module.css"
 
 const URL = "http://localhost:3001/activities";
 
@@ -105,9 +106,9 @@ const ActivityForm = () => {
   };
 
   return (
-    <div>
+    <div >
       {!created ? (
-        <form onSubmit={handleSubmit}>
+        <form className={style.Form} onSubmit={handleSubmit}>
           <div>
             <label htmlFor='name'>Name:</label>
             <input

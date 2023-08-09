@@ -6,11 +6,11 @@ const ActivityCard = ({ activity }) => {
   
   return (
     <div className={style.Card}>
-      <h4>{name}</h4>
-      <h5>Difficulty: {difficulty}</h5>
-      <h5>Duration: {duration}</h5>
-      <h5>Season: {season}</h5>
-      <h5>Countries:</h5>
+      <h2>{name}</h2>
+      <h4>Difficulty: {difficulty}</h4>
+      <h4>Duration: {duration}</h4>
+      <h4>Season: {season}</h4>
+      <h4>Countries:</h4>
       <ul>
         {Countries?.map((country, index) => (
           <li key={index}>{country.name}</li>

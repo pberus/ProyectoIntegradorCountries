@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getCountryById, removeDetail } from "../../redux/actions";
+import style from "./detail.module.css"
 
 const Detail = () => {
   const { ID } = useParams();
@@ -28,7 +29,7 @@ const Detail = () => {
   }, [ID, dispatch]);
 
   return (
-    <div>
+    <div className={style.Detail}>
       <button onClick={() => navigate("/home")}>Volver</button>
       <h1>{name}</h1>
       <h3>ID: {ID}</h3>

@@ -1,0 +1,10 @@
+.SearchBar {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+input::placeholder {
+  color: black;
+}

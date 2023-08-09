@@ -90,9 +90,12 @@ const Home = ({ logout }) => {
   return (
     <div className={style.homeContainer}>
       <h1>App Countries</h1>
-      <Nav logout={logout} handleResetFilterOrder={handleResetFilterOrder} />
+      <div className={style.nav}>
+        <Nav logout={logout} handleResetFilterOrder={handleResetFilterOrder}/>
+      </div>
+      
 
-      <div>
+      <div className={style.filterOrder}>
         <select name='filter' value={filter} onChange={handleFilter}>
           <option value='' disabled>Select Filter</option>
           <optgroup label='Country Continents'>

@@ -1,6 +1,27 @@
 .Card {
-    border: solid gray 3px;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-  }
+  border: solid white 3px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  max-width: 350px;
+}
+
+li {
+  font-weight: bold;
+  color: black;
+  display: flex;
+  align-content: center;
+  text-decoration: underline white 2px;
+}
+
+.Card h2{
+  border: solid white 3px;
+}
+
+h4{
+  border: solid white 2px;
+  color: black;
+  text-decoration: underline white 2px;
+  -webkit-text-stroke: 0.5px white;
+}
+

@@ -8,6 +8,7 @@ import {
   searchCountry,
 } from "../../redux/actions";
 import { useSelector } from "react-redux";
+import style from "./searchBar.module.css"
 
 const countriesURL = "http://localhost:3001/countries/";
 
@@ -66,7 +67,7 @@ const SearchBar = ({handleResetFilterOrder}) => {
   };
 
   return (
-    <div>
+    <div className={style.SearchBar}>
       <input
         type='text'
         placeholder='Introduce country name '

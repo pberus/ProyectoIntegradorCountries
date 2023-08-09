@@ -1,0 +1,10 @@
+.Form{
+    border: 3px solid white;
+}
+
+label{
+    color: white;
+    -webkit-text-stroke: 0.5px black;
+    text-decoration: underline white 2px;
+}
+
