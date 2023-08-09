@@ -7,7 +7,13 @@ const postActivityHandler = async (req, res) => {
   try {
     const { name, difficulty, duration, season, countriesId } = req.body;
 
-    if (!name || !difficulty || !duration || !season) {
+    if (
+      !name ||
+      !difficulty ||
+      !duration ||
+      !season ||
+      countriesId.length === 0
+    ) {
       throw new Error("Missing data");
     }
 

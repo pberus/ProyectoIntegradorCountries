@@ -1,8 +1,11 @@
+// const { Op, literal } = require("sequelize")
 // const {Country} = require("../db")
 // const getCountryMaxPopulationController = ()=>{
 //     const country = Country.findOne({
 //         where: {
-//             population: population > "10000000"
+//             population: {
+//                 [Op.gt]: literal("100500000::integer")
+//             }
 //         }
 //     })
 //     return country

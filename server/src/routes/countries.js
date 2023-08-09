@@ -5,10 +5,10 @@ const getCountryMaxPopulationHandler = require("../handlers/getCountryMaxPopulat
 
 const routerCountries = require("express").Router();
 
+//routerCountries.get("/maxpopulation", getCountryMaxPopulationHandler)
 routerCountries.get("/", getAllCountriesHandler);
 routerCountries.get("/name", getCountryByNameHandler);
 routerCountries.get("/:idPais", getCountryByIdHandler);
-//routerCountries.get("/maxpopulation", getCountryMaxPopulationHandler)
 
 
 module.exports = routerCountries;
