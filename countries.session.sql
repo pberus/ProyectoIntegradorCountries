@@ -1,2 +1,0 @@
-SELECT "ID" FROM "Countries"
-
