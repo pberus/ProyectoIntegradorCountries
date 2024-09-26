@@ -3,7 +3,7 @@ import ActivityCards from "../../components/Cards/activityCards";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const URL = "http://localhost:3001/activities";
+const URL = `${import.meta.env.VITE_BACKEND_URL}/activities` || "http://localhost:3001/activities";
 
 const Activities = () => {
   const [activities, setActivities] = useState([]);

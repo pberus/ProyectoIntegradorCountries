@@ -10,7 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import style from "./searchBar.module.css"
 
-const countriesURL = "http://localhost:3001/countries/";
+const countriesURL = `${import.meta.env.VITE_BACKEND_URL}/countries` || "http://localhost:3001/countries";
 
 const SearchBar = ({handleResetFilterOrder}) => {
   const [name, setName] = useState("");

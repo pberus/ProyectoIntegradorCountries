@@ -4,7 +4,7 @@ import { Activities, Detail, Form, Home, Landing } from "./views";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const URL = "http://localhost:3001/";
+const URL = `${import.meta.env.VITE_BACKEND_URL}/` || "http://localhost:3001/";
 
 function App() {
   const [access, setAccess] = useState(false);

@@ -14,7 +14,7 @@ export const RESET_FILTER_ORDER = "RESET_FILTER_ORDER";
 export const REMOVE_COUNTRIES = "REMOVE_COUNTRIES";
 export const RESET_WITH_ACTIVITIES = "RESET_WITH_ACTIVITIES";
 
-const URL = "http://localhost:3001/";
+const URL = `${import.meta.env.VITE_BACKEND_URL}/` || "http://localhost:3001/";
 
 export const searchCountry = (country) => {
   return {

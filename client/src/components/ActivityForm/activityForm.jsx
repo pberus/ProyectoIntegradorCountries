@@ -5,7 +5,7 @@ import { getAllCountries, resetWithActivities } from "../../redux/actions";
 import validateField from "./validate";
 import style from "./activityForm.module.css"
 
-const URL = "http://localhost:3001/activities";
+const URL = `${import.meta.env.VITE_BACKEND_URL}/activities` || "http://localhost:3001/activities";
 
 const ActivityForm = () => {
   const [activityValues, setActivityValues] = useState({
