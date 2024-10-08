@@ -7,7 +7,9 @@ const server = express();
 
 server.use(morgan("dev"));
 server.use(express.json());
-server.use(cors());
+server.use(cors({
+    origin: process.env.FRONTEND_URL || "http://localhost:5173"
+}));
 
 server.use(router);
 
