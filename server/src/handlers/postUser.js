@@ -5,10 +5,9 @@ const postUserHandler = async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) throw new Error("Missing user data");
 
-    const [newUser, created] = await postUserController(email, password);
-    if (!created) throw new Error("The user already exists");
+    await postUserController(email, password);
 
-    return res.json(newUser);
+    return res.send("User registed correctly!");
   } catch (error) {
     switch (error.message) {
       case "Missing user data":

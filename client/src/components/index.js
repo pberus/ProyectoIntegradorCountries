@@ -6,5 +6,6 @@ import Card from "./Card/card";
 import ActivityCard from "./Card/activityCard";
 import ActivityForm from "./ActivityForm/activityForm";
 import ActivityCards from "./Cards/activityCards";
+import RegisterForm from "./RegisterForm/registerForm";
 
-export { LoginForm, Nav, SearchBar, Cards, Card, ActivityCard, ActivityForm, ActivityCards };
+export { LoginForm, Nav, SearchBar, Cards, Card, ActivityCard, ActivityForm, ActivityCards, RegisterForm };
